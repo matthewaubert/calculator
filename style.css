@@ -72,3 +72,12 @@ button {
 button:hover {
   filter: brightness(95%);
 }
+
+button.number {
+  background-color: lightsteelblue;
+}
+
+button.operation {
+  background-color: darkorange;
+  color: white;
+}
