@@ -27,3 +27,10 @@ function operate (operator, x, y) {
   }
   return cb(x, y);
 }
+
+// function that enables buttons to populate display
+  // select display
+  // select buttons
+  // obj: keys for each button text, values for desired result (number or function)
+
+  // for each button

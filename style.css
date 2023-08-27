@@ -1,7 +1,6 @@
 * {
   margin: 0;
   padding: 0;
-  text-align: center;
 }
 
 html, body {
@@ -14,8 +13,6 @@ body {
   align-items: center;
   /* gap: 72px; */
   /* margin-top: 36px; */
-  font-family: 'Courier New', Courier, monospace;
-  color: rgb(45, 45, 45);
   background-color: #f1f1f1;
 }
 
@@ -33,11 +30,25 @@ body {
 }
 
 #display {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
   box-sizing: border-box;
   height: 21%;
   margin-bottom: 16px;
+  padding: 12px;
   border: solid rgb(45, 45, 45) 2px;
   border-radius: 6px;
+  background-color: #f1f1f1;
+  font-size: 48px;
+  text-align: right;
+}
+
+#display,
+button {
+  font-family: 'Courier New', Courier, monospace;
+  color: rgb(45, 45, 45);
+  font-weight: 700;
 }
 
 #button-grid {
@@ -48,10 +59,16 @@ body {
   height: 76%;
 }
 
-.button {
+button {
+  appearance: none;
   box-sizing: border-box;
   border: solid rgb(45, 45, 45) 2px;
   border-radius: 6px;
   width: 84px;
   height: 70px;
+  font-size: 24px;
+}
+
+button:hover {
+  filter: brightness(95%);
 }
