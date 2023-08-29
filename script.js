@@ -1,6 +1,6 @@
 let firstNum = 0;
-let operator;
-let secondNum;
+let operator = null;
+let secondNum = null;
 let replaceNum = true;
 
 const add = (x, y) => x + y; // function to add two numbers
@@ -13,7 +13,7 @@ enableButtons();
 // operate function; input: two numbers, callback: operation to perform on input numbers
 function operate (operator, x, y) {
   // set cb to one of above callbacks based on operator
-  let cb;
+  let cb = null;
   switch(operator) {
     case '+':
       cb = add;
@@ -28,7 +28,9 @@ function operate (operator, x, y) {
       cb = divide;
       break;
   }
-  return cb(x, y);
+
+  const res = cb(x, y); // run numbers thru cb
+  return Number(String(res).slice(0, 12)); // return result limited to 12 numbers
 }
 
 // obj: keys for each button text, values for desired result (number or function)
@@ -45,9 +47,9 @@ function enableButtons() {
   const operations = document.querySelectorAll('.operation');
   operations.forEach(operationBtn => enableOperations(operationBtn, displayContent));
 
-  // pass equals button into function to add event listener
+  // add click event listener to equals button
   const equals = document.querySelector('.equals');
-  enableEquals(equals, displayContent);
+  enableEquals(equals);
 }
 
 // function to add event listeners to number buttons to populate the display
@@ -67,19 +69,34 @@ function populateDisplay(button, displayContent) {
 // function to add event listeners to operation buttons to: set operator, firstNum, allow new num to be entered
 function enableOperations(button, displayContent) {
   button.addEventListener('click', () => { // add click event listener to button
+    if (operator) resolveOperation(); // if there already is an operator, resolve operation
     operator = button.innerText; // set operator to button text
     firstNum = Number(displayContent.innerText); // set firstNum to displayContent text, converted to Number
     replaceNum = true;
   });
 }
 
-function enableEquals(button, displayContent) {
-  button.addEventListener('click', () => { // add click event listener to button
-    secondNum = Number(displayContent.innerText); // set secondNum to displayContent text, converted to Number
-    // pass operator, firstNum, secondNum into operate function; set to res
-    let res = operate(operator, firstNum, secondNum);
-    displayContent.innerText = res; // change displayContent text to res
-    firstNum = res; // change firstNum to res
-    replaceNum = true;
+// function to add event listener to equals button to: resolve operation and re-set operator to null
+function enableEquals(button) {
+  button.addEventListener('click', () => {
+    resolveOperation();
+    operator = null;
   });
+}
+
+function resolveOperation() {
+  const displayContent = document.querySelector('#display-content');
+  
+  secondNum = Number(displayContent.innerText); // set secondNum to displayContent text, converted to Number
+  // pass operator, firstNum, secondNum into operate function; set to res
+  let res = operate(operator, firstNum, secondNum);
+  displayContent.innerText = res; // change displayContent text to res
+  printOperation();
+  firstNum = res; // change firstNum to res
+  replaceNum = true;
+}
+
+function printOperation() {
+  const displayContentText = document.querySelector('#display-content').innerText;
+  console.log(`first num: ${firstNum} ${operator} ${secondNum} = ${displayContentText}`);
 }

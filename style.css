@@ -81,7 +81,12 @@ button.number {
   background-color: lightsteelblue;
 }
 
-button.operation {
+button.operation,
+button.equals {
   background-color: darkorange;
   color: white;
+}
+
+button.selected {
+  border: solid goldenrod 3px;
 }
