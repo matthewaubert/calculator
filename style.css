@@ -73,6 +73,10 @@ button:hover {
   filter: brightness(95%);
 }
 
+button:active {
+  filter: brightness(85%);
+}
+
 button.number {
   background-color: lightsteelblue;
 }
