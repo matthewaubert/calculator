@@ -47,9 +47,13 @@ function enableButtons() {
   const operations = document.querySelectorAll('.operation');
   operations.forEach(operationBtn => enableOperations(operationBtn, displayContent));
 
-  // add click event listener to equals button
+  // pass equals button into function to add event listener
   const equals = document.querySelector('.equals');
   enableEquals(equals);
+
+  // pass AC button into function to add event listener
+  const ac = document.querySelector('.ac');
+  enableAC(ac, displayContent);   
 }
 
 // function to add event listeners to number buttons to populate the display
@@ -84,6 +88,7 @@ function enableEquals(button) {
   });
 }
 
+// function to resolve the operation when both numbers and operation are defined
 function resolveOperation() {
   const displayContent = document.querySelector('#display-content');
   
@@ -96,7 +101,20 @@ function resolveOperation() {
   replaceNum = true;
 }
 
+// function to log most recent operation to the console in order to assure accuracy
 function printOperation() {
   const displayContentText = document.querySelector('#display-content').innerText;
   console.log(`first num: ${firstNum} ${operator} ${secondNum} = ${displayContentText}`);
+}
+
+// function to add event listener to AC button to: clear the display and reset calculator
+function enableAC(button, displayContent) {
+  button.addEventListener('click', () => {
+    firstNum = 0;
+    displayContent.innerText = firstNum;
+    operator = null;
+    secondNum = null;
+    replaceNum = true;
+    printOperation();
+  });
 }
