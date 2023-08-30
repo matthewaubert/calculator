@@ -11,8 +11,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* gap: 72px; */
-  /* margin-top: 36px; */
   background-color: #f1f1f1;
 }
 
@@ -39,16 +37,14 @@ body {
   padding: 12px;
   border: solid rgb(45, 45, 45) 2px;
   border-radius: 6px;
-  background-color: #f1f1f1;
-  font-size: 48px;
+  /* background-color: #f1f1f1; */
+  background-color: rgb(80, 80, 80);
   text-align: right;
-}
-
-#display,
-button {
-  font-family: 'Courier New', Courier, monospace;
-  color: rgb(45, 45, 45);
-  font-weight: 700;
+  font-size: 48px;
+  font-family: 'Segment7Standard';
+  font-weight: normal;
+  color: #39FF14;
+  text-shadow: #31d315 0px 0px 6px;
 }
 
 #button-grid {
@@ -67,6 +63,9 @@ button {
   width: 84px;
   height: 70px;
   font-size: 24px;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 700;
+  color: rgb(45, 45, 45);
 }
 
 button:hover {
