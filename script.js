@@ -53,7 +53,11 @@ function enableButtons() {
 
   // pass AC button into function to add event listener
   const ac = document.querySelector('.ac');
-  enableAC(ac, displayContent);   
+  enableAC(ac, displayContent);
+
+  // pass del button into function to add event listener
+  const del = document.querySelector('.del');
+  enableDel(del, displayContent);
 }
 
 // function to add event listeners to number buttons to populate the display
@@ -116,5 +120,13 @@ function enableAC(button, displayContent) {
     secondNum = null;
     replaceNum = true;
     printOperation();
+  });
+}
+
+// function to add event listener to del button to: delete last number from display
+function enableDel(button, displayContent) {
+  button.addEventListener('click', () => {
+    let newText = displayContent.innerText.slice(0, displayContent.innerText.length - 1);
+    newText.length < 1 ? displayContent.innerText = 0 : displayContent.innerText = newText;
   });
 }
