@@ -91,14 +91,19 @@ function enableEquals(displayContent) {
 // resolve the operation when both numbers and operation are defined
 function resolveOperation(displayContent) {  
   secondNum = Number(displayContent.innerText); // set secondNum to displayContent text, converted to Number
-  // pass operator, firstNum, secondNum into operate function; set to res
-  let res = operate(operator, firstNum, secondNum);
-  displayContent.innerText = res; // change displayContent text to res
-  printOperation();
-  firstNum = res; // change firstNum to res
+  
+  if (operator === '÷' && secondNum === 0) { // edge case: if user tries to divide by 0
+    displayContent.innerText = 'lol';
+  } else {
+    // pass operator, firstNum, secondNum into operate function; set to res
+    let res = operate(operator, firstNum, secondNum);
+    displayContent.innerText = res; // change displayContent text to res
+    printOperation();
+    firstNum = res; // change firstNum to res
+  }
   replaceNum = true;
 
-  const selected = document.querySelector('.selected'); // select selected operation
+  const selected = document.querySelector('.selected'); // select selected operation button
   selected.classList.remove('selected'); // remove 'selected' class
 }
 
