@@ -43,6 +43,7 @@ function formatRes(num) {
   return res;
 }
 
+// enable user to click buttons
 function enableButtons() {
   const displayContent = document.querySelector('#display-content');
 
@@ -60,6 +61,8 @@ function enableButtons() {
   enableDecimal(displayContent);
   enablePosNeg(displayContent);
   enablePercent(displayContent);
+
+  enableKeyboard();
 }
 
 // add event listeners to number buttons to populate the display
@@ -118,7 +121,7 @@ function resolveOperation(displayContent) {
 // log most recent operation to the console in order to assure accuracy
 function printOperation() {
   const displayContentText = document.querySelector('#display-content').innerText;
-  console.log(`first num: ${firstNum} ${operator} ${secondNum} = ${displayContentText}`);
+  console.log(`${firstNum} ${operator} ${secondNum} = ${displayContentText}`);
 }
 
 // dd event listener to AC button to: clear the display and reset calculator
@@ -192,4 +195,26 @@ function enablePercent(displayContent) {
     displayContent.innerText = formatRes(res); // limit to 12 characters
     replaceNum = true;
   });
+}
+
+// enable user to use keyboard to press buttons
+function enableKeyboard () {
+  window.addEventListener('keydown', clickButton);
+
+  const buttons = document.querySelectorAll('#button-grid button');
+  buttons.forEach(button => button.addEventListener('transitionend', removeTransition));
+}
+
+// click button on appropriate keyboard press
+function clickButton(e) {
+  const button = document.querySelector(`button[data-key="${e.code}"][data-shift="${e.shiftKey}"]`) ||
+    document.querySelector(`button[data-key2="${e.code}"][data-shift="${e.shiftKey}"]`);
+  if (!button) return; // if button doesn't exist, stop function
+  button.click();
+  button.classList.add('active');
+}
+
+// remove 'active' button shading after transition period
+function removeTransition(e) {
+  this.classList.remove('active');
 }

@@ -41,7 +41,7 @@ body {
   background-color: rgb(85, 85, 85);
   text-align: right;
   font-size: 48px;
-  font-family: 'Segment7Standard';
+  font-family: 'Segment7Standard', 'Courier New', Courier, monospace;
   font-weight: normal;
   color: #39FF14;
   text-shadow: #31d315 0px 0px 6px;
@@ -66,6 +66,7 @@ button {
   font-family: 'Courier New', Courier, monospace;
   font-weight: 700;
   color: rgb(45, 45, 45);
+  transition: all .05s ease;
 }
 
 button:hover {
@@ -73,6 +74,10 @@ button:hover {
 }
 
 button:active {
+  filter: brightness(85%);
+}
+
+button.active {
   filter: brightness(85%);
 }
 
