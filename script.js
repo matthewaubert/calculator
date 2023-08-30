@@ -83,7 +83,7 @@ function enableOperations(button, displayContent) {
 function enableEquals(displayContent) {
   const equals = document.querySelector('.equals');
   equals.addEventListener('click', () => {
-    resolveOperation(displayContent);
+    if (operator) resolveOperation(displayContent);
     operator = null;
   });
 }
@@ -120,7 +120,7 @@ function enableAC(displayContent) {
     printOperation();
 
     const selected = document.querySelector('.selected'); // select selected operation
-    selected.classList.remove('selected'); // remove 'selected' class
+    if (selected) selected.classList.remove('selected'); // remove 'selected' class
   });
 }
 
