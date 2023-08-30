@@ -35,7 +35,6 @@ function operate (operator, x, y) {
 
 // obj: keys for each button text, values for desired result (number or function)
 
-// function that enables buttons to populate display
 function enableButtons() {
   const displayContent = document.querySelector('#display-content');
 
@@ -47,20 +46,15 @@ function enableButtons() {
   const operations = document.querySelectorAll('.operation');
   operations.forEach(operationBtn => enableOperations(operationBtn, displayContent));
 
-  // pass equals button into function to add event listener
-  enableEquals();
-
-  // pass AC button into function to add event listener
+  enableEquals(displayContent);
   enableAC(displayContent);
-
-  // pass del button into function to add event listener
   enableDel(displayContent);
-
-  // pass decimal button into function to add event listener
   enableDecimal(displayContent);
+  enablePosNeg(displayContent);
+  enablePercent(displayContent);
 }
 
-// function to add event listeners to number buttons to populate the display
+// add event listeners to number buttons to populate the display
 function populateDisplay(button, displayContent) {
   button.addEventListener('click', () => {
     if (replaceNum) {
@@ -74,29 +68,27 @@ function populateDisplay(button, displayContent) {
   });
 }
 
-// function to add event listeners to operation buttons to: set operator, firstNum, allow new num to be entered
+// add event listeners to operation buttons to: set operator, firstNum, allow new num to be entered
 function enableOperations(button, displayContent) {
   button.addEventListener('click', () => { // add click event listener to button
-    if (operator) resolveOperation(); // if there already is an operator, resolve operation
+    if (operator) resolveOperation(displayContent); // if there already is an operator, resolve operation
     operator = button.innerText; // set operator to button text
     firstNum = Number(displayContent.innerText); // set firstNum to displayContent text, converted to Number
     replaceNum = true;
   });
 }
 
-// function to add event listener to equals button to: resolve operation and re-set operator to null
-function enableEquals() {
+// add event listener to equals button to: resolve operation and re-set operator to null
+function enableEquals(displayContent) {
   const equals = document.querySelector('.equals');
   equals.addEventListener('click', () => {
-    resolveOperation();
+    resolveOperation(displayContent);
     operator = null;
   });
 }
 
-// function to resolve the operation when both numbers and operation are defined
-function resolveOperation() {
-  const displayContent = document.querySelector('#display-content');
-  
+// resolve the operation when both numbers and operation are defined
+function resolveOperation(displayContent) {  
   secondNum = Number(displayContent.innerText); // set secondNum to displayContent text, converted to Number
   // pass operator, firstNum, secondNum into operate function; set to res
   let res = operate(operator, firstNum, secondNum);
@@ -106,13 +98,13 @@ function resolveOperation() {
   replaceNum = true;
 }
 
-// function to log most recent operation to the console in order to assure accuracy
+// log most recent operation to the console in order to assure accuracy
 function printOperation() {
   const displayContentText = document.querySelector('#display-content').innerText;
   console.log(`first num: ${firstNum} ${operator} ${secondNum} = ${displayContentText}`);
 }
 
-// function to add event listener to AC button to: clear the display and reset calculator
+// dd event listener to AC button to: clear the display and reset calculator
 function enableAC(displayContent) {
   const ac = document.querySelector('.ac');
   ac.addEventListener('click', () => {
@@ -125,18 +117,23 @@ function enableAC(displayContent) {
   });
 }
 
-// function to add event listener to del button to: delete last element from display
+// add event listener to del button to: delete last element from display
 function enableDel(displayContent) {
   const del = document.querySelector('.del');
   del.addEventListener('click', () => {
     // if deleting the last element would result in an empty display, set display text to 0
     // else, delete last element
     let newText = displayContent.innerText.slice(0, displayContent.innerText.length - 1);
-    newText.length < 1 ? displayContent.innerText = 0 : displayContent.innerText = newText;
+    if (newText.length < 1) {
+      displayContent.innerText = 0;
+      replaceNum = true;
+    } else {
+      displayContent.innerText = newText;
+    }
   });
 }
 
-// function to add event listener to decimal button to: add a decimal to the display
+// add event listener to decimal button to: add a decimal to the display
 function enableDecimal(displayContent) {
   const decimal = document.querySelector('.decimal');
   decimal.addEventListener('click', () => {
@@ -149,5 +146,26 @@ function enableDecimal(displayContent) {
     if (!displayContent.innerText.includes(decimal.innerText)) {
       displayContent.innerText += decimal.innerText;
     }
+  });
+}
+
+// add event listener to pos-neg button to: reverse display number sign (e.g. positive to negative)
+function enablePosNeg(displayContent) {
+  const posNeg = document.querySelector('.pos-neg');
+  posNeg.addEventListener('click', () => {
+    if (displayContent.innerText !== '0') {
+      displayContent.innerText.includes('-') ?
+        displayContent.innerText = displayContent.innerText.slice(1) :
+        displayContent.innerText = '-' + displayContent.innerText;
+    }
+  });
+}
+
+// add event listener to percent button to: move decimal place to left by 2 digits
+function enablePercent(displayContent) {
+  const percent = document.querySelector('.percent');
+  percent.addEventListener('click', () => {
+    displayContent.innerText /= 100;
+    replaceNum = true;
   });
 }
