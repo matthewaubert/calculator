@@ -87,12 +87,12 @@ button.equals {
   color: white;
 }
 
-button.selected {
-  border: solid goldenrod 3px;
-}
-
 button.ac,
 button.del {
   background-color: #aaf;
   /* color: white; */
+}
+
+button.operation.selected {
+  border: solid yellow 4px;
 }

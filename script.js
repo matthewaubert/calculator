@@ -70,11 +70,12 @@ function populateDisplay(button, displayContent) {
 
 // add event listeners to operation buttons to: set operator, firstNum, allow new num to be entered
 function enableOperations(button, displayContent) {
-  button.addEventListener('click', () => { // add click event listener to button
-    if (operator) resolveOperation(displayContent); // if there already is an operator, resolve operation
+  button.addEventListener('click', e => { // add click event listener to button
+    if (operator) resolveOperation(displayContent); // if there is already an operator, resolve operation
     operator = button.innerText; // set operator to button text
     firstNum = Number(displayContent.innerText); // set firstNum to displayContent text, converted to Number
     replaceNum = true;
+    e.target.classList.add('selected');
   });
 }
 
@@ -96,6 +97,9 @@ function resolveOperation(displayContent) {
   printOperation();
   firstNum = res; // change firstNum to res
   replaceNum = true;
+
+  const selected = document.querySelector('.selected'); // select selected operation
+  selected.classList.remove('selected'); // remove 'selected' class
 }
 
 // log most recent operation to the console in order to assure accuracy
@@ -114,6 +118,9 @@ function enableAC(displayContent) {
     secondNum = null;
     replaceNum = true;
     printOperation();
+
+    const selected = document.querySelector('.selected'); // select selected operation
+    selected.classList.remove('selected'); // remove 'selected' class
   });
 }
 
@@ -123,12 +130,14 @@ function enableDel(displayContent) {
   del.addEventListener('click', () => {
     // if deleting the last element would result in an empty display, set display text to 0
     // else, delete last element
-    let newText = displayContent.innerText.slice(0, displayContent.innerText.length - 1);
-    if (newText.length < 1) {
-      displayContent.innerText = 0;
-      replaceNum = true;
-    } else {
-      displayContent.innerText = newText;
+    if (!replaceNum) {
+      let newText = displayContent.innerText.slice(0, displayContent.innerText.length - 1);
+      if (newText.length < 1) {
+        displayContent.innerText = 0;
+        replaceNum = true;
+      } else {
+        displayContent.innerText = newText;
+      }
     }
   });
 }
