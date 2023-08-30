@@ -30,10 +30,18 @@ function operate (operator, x, y) {
   }
 
   const res = cb(x, y); // run numbers thru cb
-  return Number(String(res).slice(0, 12)); // return result limited to 12 numbers
+  return Number(formatRes(res)); // return correctly formatted result
 }
 
-// obj: keys for each button text, values for desired result (number or function)
+// format results to limit characters and remove trailing zeros
+function formatRes(num) {
+  res = String(num).slice(0, 12); // limit to 12 characters
+  // if number has decimal, remove trailing zeros
+  if (res.includes('.')) {
+    while (res[res.length - 1] === '0') res.slice(0, res.length - 1);
+  }
+  return res;
+}
 
 function enableButtons() {
   const displayContent = document.querySelector('#display-content');
@@ -179,7 +187,9 @@ function enablePosNeg(displayContent) {
 function enablePercent(displayContent) {
   const percent = document.querySelector('.percent');
   percent.addEventListener('click', () => {
-    displayContent.innerText /= 100;
+    const res = displayContent.innerText / 100;
+    console.log(res);
+    displayContent.innerText = formatRes(res); // limit to 12 characters
     replaceNum = true;
   });
 }
