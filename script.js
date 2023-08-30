@@ -58,6 +58,10 @@ function enableButtons() {
   // pass del button into function to add event listener
   const del = document.querySelector('.del');
   enableDel(del, displayContent);
+
+  // pass decimal button into function to add event listener
+  const decimal = document.querySelector('.decimal');
+  enableDecimal(decimal, displayContent);
 }
 
 // function to add event listeners to number buttons to populate the display
@@ -123,10 +127,27 @@ function enableAC(button, displayContent) {
   });
 }
 
-// function to add event listener to del button to: delete last number from display
+// function to add event listener to del button to: delete last element from display
 function enableDel(button, displayContent) {
   button.addEventListener('click', () => {
+    // if deleting the last element would result in an empty display, set display text to 0
+    // else, delete last element
     let newText = displayContent.innerText.slice(0, displayContent.innerText.length - 1);
     newText.length < 1 ? displayContent.innerText = 0 : displayContent.innerText = newText;
+  });
+}
+
+// function to add event listener to decimal button to: add a decimal to the display
+function enableDecimal(button, displayContent) {
+  button.addEventListener('click', () => {
+    // if the display number should be replaced, add a 0 first
+    if (replaceNum) {
+      displayContent.innerText = 0;
+      replaceNum = false;
+    }
+    // if display text doesn't already have a decimal, add a decimal
+    if (!displayContent.innerText.includes(button.innerText)) {
+      displayContent.innerText += button.innerText;
+    }
   });
 }
