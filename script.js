@@ -215,6 +215,6 @@ function clickButton(e) {
 }
 
 // remove 'active' button shading after transition period
-function removeTransition(e) {
+function removeTransition() {
   this.classList.remove('active');
 }
