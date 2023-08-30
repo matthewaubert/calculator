@@ -48,20 +48,16 @@ function enableButtons() {
   operations.forEach(operationBtn => enableOperations(operationBtn, displayContent));
 
   // pass equals button into function to add event listener
-  const equals = document.querySelector('.equals');
-  enableEquals(equals);
+  enableEquals();
 
   // pass AC button into function to add event listener
-  const ac = document.querySelector('.ac');
-  enableAC(ac, displayContent);
+  enableAC(displayContent);
 
   // pass del button into function to add event listener
-  const del = document.querySelector('.del');
-  enableDel(del, displayContent);
+  enableDel(displayContent);
 
   // pass decimal button into function to add event listener
-  const decimal = document.querySelector('.decimal');
-  enableDecimal(decimal, displayContent);
+  enableDecimal(displayContent);
 }
 
 // function to add event listeners to number buttons to populate the display
@@ -89,8 +85,9 @@ function enableOperations(button, displayContent) {
 }
 
 // function to add event listener to equals button to: resolve operation and re-set operator to null
-function enableEquals(button) {
-  button.addEventListener('click', () => {
+function enableEquals() {
+  const equals = document.querySelector('.equals');
+  equals.addEventListener('click', () => {
     resolveOperation();
     operator = null;
   });
@@ -116,8 +113,9 @@ function printOperation() {
 }
 
 // function to add event listener to AC button to: clear the display and reset calculator
-function enableAC(button, displayContent) {
-  button.addEventListener('click', () => {
+function enableAC(displayContent) {
+  const ac = document.querySelector('.ac');
+  ac.addEventListener('click', () => {
     firstNum = 0;
     displayContent.innerText = firstNum;
     operator = null;
@@ -128,8 +126,9 @@ function enableAC(button, displayContent) {
 }
 
 // function to add event listener to del button to: delete last element from display
-function enableDel(button, displayContent) {
-  button.addEventListener('click', () => {
+function enableDel(displayContent) {
+  const del = document.querySelector('.del');
+  del.addEventListener('click', () => {
     // if deleting the last element would result in an empty display, set display text to 0
     // else, delete last element
     let newText = displayContent.innerText.slice(0, displayContent.innerText.length - 1);
@@ -138,16 +137,17 @@ function enableDel(button, displayContent) {
 }
 
 // function to add event listener to decimal button to: add a decimal to the display
-function enableDecimal(button, displayContent) {
-  button.addEventListener('click', () => {
+function enableDecimal(displayContent) {
+  const decimal = document.querySelector('.decimal');
+  decimal.addEventListener('click', () => {
     // if the display number should be replaced, add a 0 first
     if (replaceNum) {
       displayContent.innerText = 0;
       replaceNum = false;
     }
     // if display text doesn't already have a decimal, add a decimal
-    if (!displayContent.innerText.includes(button.innerText)) {
-      displayContent.innerText += button.innerText;
+    if (!displayContent.innerText.includes(decimal.innerText)) {
+      displayContent.innerText += decimal.innerText;
     }
   });
 }
