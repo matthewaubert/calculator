@@ -66,11 +66,12 @@ button {
   font-family: 'Courier New', Courier, monospace;
   font-weight: 700;
   color: rgb(45, 45, 45);
-  transition: all .05s ease;
+  transition: all .07s ease;
+  cursor: pointer;
 }
 
 button:hover {
-  filter: brightness(95%);
+  filter: brightness(92%);
 }
 
 button:active {

@@ -1,4 +1,4 @@
-**ETCH-A-SKETCH**
+**CALCULATOR**
 
 This project was built as part of The Odin Project, Foundations: JavaScript Basics section as a final project in order to combine everything I've learned thus far to create an on-screen calculator using JavaScript, HTML, and CSS
 
