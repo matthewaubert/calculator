@@ -21,10 +21,10 @@ function operate (operator, x, y) {
     case '-':
       cb = subtract;
       break;
-    case '×':
+    case '*':
       cb = multiply;
       break;
-    case '÷':
+    case '/':
       cb = divide;
       break;
   }
@@ -70,11 +70,11 @@ function populateDisplay(button, displayContent) {
   button.addEventListener('click', () => {
     if (replaceNum) {
       // replace displayContent text with button text
-      displayContent.innerText = button.innerText;
+      displayContent.innerText = button.value;
       replaceNum = false;
     } else if (displayContent.innerText.length < 12) {
       // append button text to displayContent text
-      displayContent.innerText += button.innerText;
+      displayContent.innerText += button.value;
     }
   });
 }
@@ -83,7 +83,7 @@ function populateDisplay(button, displayContent) {
 function enableOperations(button, displayContent) {
   button.addEventListener('click', e => { // add click event listener to button
     if (operator) resolveOperation(displayContent); // if there is already an operator, resolve operation
-    operator = button.innerText; // set operator to button text
+    operator = button.value; // set operator to button text
     firstNum = Number(displayContent.innerText); // set firstNum to displayContent text, converted to Number
     replaceNum = true;
     e.target.classList.add('selected');
