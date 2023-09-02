@@ -8,6 +8,7 @@ const subtract = (x, y) => x - y; // function to subtract two numbers
 const multiply = (x, y) => x * y; // function to multiply two numbers
 const divide = (x, y) => x / y; // function to divide two numbers
 
+scaleForMobile();
 enableButtons();
 
 // operate function; input: two numbers, callback: operation to perform on input numbers
@@ -217,4 +218,16 @@ function clickButton(e) {
 // remove 'active' button shading after transition period
 function removeTransition() {
   this.classList.remove('active');
+}
+
+// scale calculator for mobile devices
+function scaleForMobile() {
+  // select calc-frame, get width and margin
+  const calc = document.querySelector('#calc-frame');
+  const calcWidth = calc.offsetWidth + parseInt(window.getComputedStyle(calc).margin) * 2;
+  let scale = screen.width / calcWidth;
+
+  // change viewport content width
+  let meta = document.querySelector('meta[name="viewport"]');
+  meta.setAttribute('content', `width=${calcWidth}, initial-scale=${scale}, maximum-scale=1`);
 }

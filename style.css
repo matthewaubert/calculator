@@ -25,6 +25,7 @@ body {
   width: 370px;
   height: 520px;
   padding: 16px;
+  margin: 16px;
 }
 
 #display {
@@ -49,10 +50,17 @@ body {
 
 #button-grid {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: space-between;
-  align-content: space-between;
   height: 76%;
+  gap: 11px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 11px;
 }
 
 button {
