@@ -225,9 +225,9 @@ function scaleForMobile() {
   // select calc-frame, get width and margin
   const calc = document.querySelector('#calc-frame');
   const calcWidth = calc.offsetWidth + parseInt(window.getComputedStyle(calc).margin) * 2;
-  let scale = screen.width / calcWidth;
+  const scale = screen.width / calcWidth;
 
   // change viewport content width
-  let meta = document.querySelector('meta[name="viewport"]');
-  meta.setAttribute('content', `width=${calcWidth}, initial-scale=${scale}, maximum-scale=1`);
+  document.querySelector('meta[name="viewport"]')
+    .setAttribute('content', `width=${calcWidth}, initial-scale=${scale}, maximum-scale=1`);
 }
