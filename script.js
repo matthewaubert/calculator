@@ -11,26 +11,26 @@ const divide = (x, y) => x / y; // function to divide two numbers
 scaleForMobile();
 enableButtons();
 
-// operate function; input: two numbers, callback: operation to perform on input numbers
+// operate function; input: two nums, function: operator to select appropriate operation to perform on input nums
 function operate (operator, x, y) {
-  // set cb to one of above callbacks based on operator
-  let cb = null;
+  // set operation to one of above functions based on operator
+  let operation = null;
   switch(operator) {
     case '+':
-      cb = add;
+      operation = add;
       break;
     case '-':
-      cb = subtract;
+      operation = subtract;
       break;
     case '*':
-      cb = multiply;
+      operation = multiply;
       break;
     case '/':
-      cb = divide;
+      operation = divide;
       break;
   }
 
-  const res = cb(x, y); // run numbers thru cb
+  const res = operation(x, y); // run numbers thru operation
   return Number(formatRes(res)); // return correctly formatted result
 }
 
@@ -104,15 +104,13 @@ function enableEquals(displayContent) {
 function resolveOperation(displayContent) {  
   secondNum = Number(displayContent.innerText); // set secondNum to displayContent text, converted to Number
   
-  if (operator === '÷' && secondNum === 0) { // edge case: if user tries to divide by 0
-    displayContent.innerText = 'lol';
-  } else {
-    // pass operator, firstNum, secondNum into operate function; set to res
-    let res = operate(operator, firstNum, secondNum);
-    displayContent.innerText = res; // change displayContent text to res
-    printOperation();
-    firstNum = res; // change firstNum to res
-  }
+  // pass operator, firstNum, secondNum into operate function; set to res
+  let res = operate(operator, firstNum, secondNum);
+  if (isNaN(res) || res === Infinity) res = "lol"; // edge case: if user tries to divide by 0
+  displayContent.innerText = res; // change displayContent text to res
+  printOperation();
+  firstNum = res; // change firstNum to res
+
   replaceNum = true;
 
   const selected = document.querySelector('.selected'); // select selected operation button
