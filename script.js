@@ -36,12 +36,14 @@ function operate (operator, x, y) {
 
 // format results to limit characters and remove trailing zeros
 function formatRes(num) {
-  res = String(num).slice(0, 12); // limit to 12 characters
-  // if number has decimal, remove trailing zeros
-  if (res.includes('.')) {
-    while (res[res.length - 1] === '0') res.slice(0, res.length - 1);
-  }
-  return res;
+  let res = String(num).slice(0, 12); // limit to 12 characters
+
+  return new Intl.NumberFormat('en-US', {
+    maximumFractionDigits: 10,
+    signDisplay: "negative",
+    trailingZeroDisplay: "stripIfInteger",
+    useGrouping: false
+  }).format(res);
 }
 
 // enable user to click buttons
